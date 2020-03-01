@@ -3,7 +3,7 @@ Exposes local servers behind NATs and firewalls to the Internet
 
 [中文文档](README_zh.md)
 
-### Getting Started
+## Getting Started
 
 * Download the pre-built binary suitable for your operating system from the [release page][1] (or build from source if you're familar with Rust)
 
@@ -16,7 +16,7 @@ Forwarding: p.ytcode.io:39755 -> 127.0.0.1:80
 
 * Now visit the address `p.ytcode.io:39755` and the connections will be forwarded to `127.0.0.1:80`
 
-### More Examples
+## More Examples
 
 ```sh
 $ portal open 8888 192.168.0.1:3306
