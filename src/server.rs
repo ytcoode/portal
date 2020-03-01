@@ -8,7 +8,7 @@ mod tunnel;
 pub fn start<A: ToSocketAddrs>(addr: A, debug: bool) -> Result<(), Box<dyn std::error::Error>> {
     Runtime::new()?.block_on(async move {
         let mut l = TcpListener::bind(addr).await?;
-        println!("listening on: {}", l.local_addr().unwrap());
+        println!("Listening on: {}", l.local_addr().unwrap());
 
         loop {
             let (s, _) = l.accept().await?;

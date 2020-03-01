@@ -13,7 +13,7 @@ pub async fn open(host: String, port: u16, dest: String) -> Result<(), Box<dyn s
     let lp2 = peer.read_u16().await?; // inner
     let key = peer.read_u64().await?;
 
-    println!("forwarding: {}:{} -> {}", host, lp1, dest);
+    println!("Forwarding: {}:{} -> {}", host, lp1, dest);
 
     loop {
         let id = peer.read_u64().await?;
