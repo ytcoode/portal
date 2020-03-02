@@ -20,6 +20,10 @@ Forwarding: p.ytcode.io:39755 -> 127.0.0.1:80
 $ portal open 8888 192.168.0.1:3306 # 可以一次开启多个隧道，甚至是到内网的其他机器
 Forwarding: p.ytcode.io:41657 -> 192.168.0.1:3306
 Forwarding: p.ytcode.io:38913 -> 127.0.0.1:8888
+
+$ portal open 8000:8000             # 可以指定服务端的监听端口（如果它被使用了，该操作可能会失败）
+Forwarding: p.ytcode.io:8000 -> 127.0.0.1:8000
+
 ```
 
 有关更多细节，请执行命令 `portal help`

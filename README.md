@@ -22,6 +22,9 @@ Forwarding: p.ytcode.io:39755 -> 127.0.0.1:80
 $ portal open 8888 192.168.0.1:3306 # Opens multiple tunnel
 Forwarding: p.ytcode.io:41657 -> 192.168.0.1:3306
 Forwarding: p.ytcode.io:38913 -> 127.0.0.1:8888
+
+$ portal open 8000:8000             # Specifies the remote port (may fail if it's in use)
+Forwarding: p.ytcode.io:8000 -> 127.0.0.1:8000
 ```
 
 For more details, run `portal help`
