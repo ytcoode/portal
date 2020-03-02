@@ -4,6 +4,8 @@ use tokio::io::AsyncWriteExt;
 use tokio::net::TcpStream;
 use tokio::try_join;
 
+pub mod args;
+
 pub async fn proxy(mut s1: TcpStream, mut s2: TcpStream) -> io::Result<(u64, u64)> {
     let (mut r1, mut w1) = s1.split();
     let (mut r2, mut w2) = s2.split();

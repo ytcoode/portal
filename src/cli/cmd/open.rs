@@ -1,5 +1,6 @@
 use super::Cmd;
 use crate::client;
+use crate::util::args;
 use clap::Arg;
 use clap::ArgMatches;
 
@@ -34,27 +35,34 @@ impl Cmd for Open {
                         return Err("invalid format".to_string());
                     }
 
-                    v[1].parse::<u16>()
-                        .map_or_else(|e| Err(e.to_string()), |_| Ok(()))
+                    args::validate_port(v[1])
                 }),
             Arg::with_name("dest")
                 .value_name("DEST")
                 .multiple(true)
                 .required(true)
-                .help("Specifies the destination to which the portal tunnel will forward connections [format: [host:]port]")
+                .help(
+                    "Specifies the destination to which the portal tunnel will forward connections
+Format: [remote_port:][local_host:]local_port",
+                )
                 .validator(|s| {
-                    // [host:]port
-                    if s.contains(":") {
-                        let v = s.split(":").collect::<Vec<&str>>();
-                        match v.len() {
-                            2 if v.iter().all(|x| !x.is_empty()) => v[1],
-                            _ => return Err("invalid format".to_string()),
-                        }
-                    } else {
-                        &s
+                    // [remote_port:][local_host:]local_port
+                    if !s.contains(":") {
+                        return args::validate_port(&s);
                     }
-                    .parse::<u16>()
-                    .map_or_else(|e| Err(e.to_string()), |_| Ok(()))
+
+                    let v = s.split(":").collect::<Vec<&str>>();
+                    if v.iter().any(|x| x.is_empty()) {
+                        return Err("invalid format".to_string());
+                    }
+
+                    args::validate_port(v[v.len() - 1])?;
+
+                    match v.len() {
+                        2 => Ok(()),
+                        3 => args::validate_port(v[0]),
+                        _ => Err("invalid format".to_string()),
+                    }
                 }),
         ]
     }
@@ -72,17 +80,7 @@ impl Cmd for Open {
             _ => unreachable!(),
         };
 
-        let dests = matches
-            .values_of("dest")
-            .unwrap()
-            .map(|s| {
-                if s.contains(":") {
-                    s.to_string()
-                } else {
-                    "127.0.0.1".to_string() + ":" + s
-                }
-            })
-            .collect::<Vec<String>>();
+        let dests = matches.values_of("dest").unwrap();
 
         client::start(host, port, dests, debug)
     }

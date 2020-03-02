@@ -1,8 +1,8 @@
 use super::Cmd;
 use crate::server;
+use crate::util::args;
 use clap::Arg;
 use clap::ArgMatches;
-use std::net::SocketAddr;
 
 // portal setup [[ip:]port]
 pub struct Setup;
@@ -23,11 +23,9 @@ impl Cmd for Setup {
             .help("Specifies the address to bind to")
             .validator(|s| {
                 if s.contains(":") {
-                    s.parse::<SocketAddr>()
-                        .map_or_else(|e| Err(e.to_string()), |_| Ok(()))
+                    args::validate_socket_addr(&s)
                 } else {
-                    s.parse::<u16>()
-                        .map_or_else(|e| Err(e.to_string()), |_| Ok(()))
+                    args::validate_port(&s)
                 }
             })]
     }

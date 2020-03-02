@@ -8,7 +8,9 @@ use tokio::net::TcpStream;
 
 pub async fn open(peer: TcpStream) -> Result<(), Box<dyn std::error::Error>> {
     let mut peer = BufReader::with_capacity(512, peer);
-    let mut l1 = TcpListener::bind("0.0.0.0:0").await?; // outer
+    let port = peer.read_u16().await?;
+
+    let mut l1 = TcpListener::bind(("0.0.0.0", port)).await?; // outer
     let mut l2 = TcpListener::bind("0.0.0.0:0").await?; // inner
 
     peer.write_u16(l1.local_addr()?.port()).await?;
