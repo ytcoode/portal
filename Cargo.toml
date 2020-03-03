@@ -1,6 +1,6 @@
 [package]
 name = "portal"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["https://github.com/wangyuntao/portal"]
 description = "Exposes local servers behind NATs and firewalls to the Internet"
 edition = "2018"
