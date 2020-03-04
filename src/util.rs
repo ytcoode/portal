@@ -16,7 +16,7 @@ pub async fn proxy(mut s1: TcpStream, mut s2: TcpStream) -> io::Result<(u64, u64
     try_join!(c1, c2)
 }
 
-pub async fn copy<R, W>(r: &mut R, w: &mut W) -> io::Result<u64>
+pub async fn copy<R, W>(reader: &mut R, writer: &mut W) -> io::Result<u64>
 where
     R: AsyncReadExt + Unpin,
     W: AsyncWriteExt + Unpin,
@@ -25,12 +25,12 @@ where
     let mut b = [0 as u8; 2048];
 
     loop {
-        let n = r.read(&mut b).await?;
+        let n = reader.read(&mut b).await?;
         if n == 0 {
-            w.shutdown().await?;
+            writer.shutdown().await?;
             return Ok(a);
         }
-        w.write_all(&b[0..n]).await?;
-        a = a + n as u64;
+        writer.write_all(&b[0..n]).await?;
+        a += n as u64;
     }
 }

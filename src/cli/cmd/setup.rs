@@ -22,7 +22,7 @@ impl Cmd for Setup {
             .default_value("65535")
             .help("Specifies the address to bind to")
             .validator(|s| {
-                if s.contains(":") {
+                if s.contains(':') {
                     args::validate_socket_addr(&s)
                 } else {
                     args::validate_port(&s)
@@ -32,7 +32,7 @@ impl Cmd for Setup {
 
     fn run(&self, matches: &ArgMatches, debug: bool) -> Result<(), Box<dyn std::error::Error>> {
         let addr = matches.value_of("addr").unwrap();
-        if addr.contains(":") {
+        if addr.contains(':') {
             server::start(addr, debug)
         } else {
             server::start(("0.0.0.0", addr.parse::<u16>().unwrap()), debug)

@@ -26,11 +26,11 @@ impl Cmd for Open {
                 .help("Specifies the portal server to connect to")
                 .validator(|s| {
                     // host[:port]
-                    if !s.contains(":") {
+                    if !s.contains(':') {
                         return Ok(());
                     }
 
-                    let v = s.split(":").collect::<Vec<&str>>();
+                    let v = s.split(':').collect::<Vec<&str>>();
                     if v.len() != 2 || v.iter().any(|x| x.is_empty()) {
                         return Err("invalid format".to_string());
                     }
@@ -47,11 +47,11 @@ Format: [remote_port:][local_host:]local_port",
                 )
                 .validator(|s| {
                     // [remote_port:][local_host:]local_port
-                    if !s.contains(":") {
+                    if !s.contains(':') {
                         return args::validate_port(&s);
                     }
 
-                    let v = s.split(":").collect::<Vec<&str>>();
+                    let v = s.split(':').collect::<Vec<&str>>();
                     if v.iter().any(|x| x.is_empty()) {
                         return Err("invalid format".to_string());
                     }
@@ -71,7 +71,7 @@ Format: [remote_port:][local_host:]local_port",
         let server = matches
             .value_of("server")
             .unwrap()
-            .split(":")
+            .split(':')
             .collect::<Vec<&str>>();
 
         let (host, port) = match server.len() {

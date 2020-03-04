@@ -40,7 +40,7 @@ pub async fn open(host: String, port: u16, dest: String) -> Result<(), Box<dyn s
 
 // [remote_port:][local_host:]local_port
 fn parse_dest(s: String) -> (u16, String) {
-    let v = s.split(":").collect::<Vec<&str>>();
+    let v = s.split(':').collect::<Vec<&str>>();
     match v.len() {
         1 => (0, "127.0.0.1:".to_string() + &s),
         2 => match v[0].parse::<u16>() {

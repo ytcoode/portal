@@ -384,7 +384,7 @@ checksum = "5894c618ce612a3fa23881b152b608bafb8c56cfc22f434a3ba3120b40f7b587"
 
 [[package]]
 name = "portal"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "clap",
  "futures",
