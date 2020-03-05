@@ -22,7 +22,7 @@ impl Cmd for Open {
                 .short('s')
                 .long("server")
                 .value_name("host[:port]")
-                .default_value("p.ytcode.io:65535")
+                .default_value("portals.rs:65535")
                 .help("Specifies the portal server to connect to")
                 .validator(|s| {
                     // host[:port]
