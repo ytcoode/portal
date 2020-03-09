@@ -2,7 +2,8 @@ use clap::Arg;
 use clap::ArgMatches;
 
 mod open;
-mod setup;
+mod registry;
+mod server;
 
 pub trait Cmd {
     fn name(&self) -> &str;
@@ -15,5 +16,5 @@ pub trait Cmd {
 }
 
 pub fn all() -> Vec<&'static dyn Cmd> {
-    vec![&setup::Setup, &open::Open]
+    vec![&server::Server, &open::Open, &registry::Registry]
 }

@@ -19,7 +19,7 @@ Forwarding: portals.rs:39755 -> 127.0.0.1:80
 ## More Examples
 
 ```sh
-$ portal open 8888 192.168.0.1:3306 # Opens multiple tunnel
+$ portal open 8888 192.168.0.1:3306 # Opens multiple tunnel at once
 Forwarding: portals.rs:41657 -> 192.168.0.1:3306
 Forwarding: portals.rs:38913 -> 127.0.0.1:8888
 
